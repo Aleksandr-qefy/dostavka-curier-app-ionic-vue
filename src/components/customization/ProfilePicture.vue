@@ -1,18 +1,4 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-
-
-      </ion-header>
       <ion-fab vertical="center" horizontal="end" slot="fixed">
         <ion-fab-button @click="takePhoto">
           <ion-icon :icon="cameraOutline"></ion-icon>
@@ -29,7 +15,13 @@
       <!--div :key="index" v-for="(photo, index) in photos">
         <img class="w-64 h-64 rounded-full" :src="photo.webviewPath" alt="">
       </div-->
-    <div class="w-full bg-white p-4 space-y-3">
+    <div class="w-screen bg-white p-4 space-y-3">
+      <div>
+        <!--img class="mx-auto h-12 w-auto fill-current text-green-600" src="../assets/svg/document-text.svg" alt="Workflow"-->
+        <h2 class="mt-6 text-center text-gray-600">
+          Выбор аватарки
+        </h2>
+      </div>
       <!--div>
         <h2 class="mt-6 text-center text-gray-600">
           Выбор рабочей зоны
@@ -37,49 +29,9 @@
       </div-->
       <!--form class="mt-8 space-y-6" action="#" method="POST"-->
       <div class="mt-8 space-y-3">
-        <!--input type="hidden" name="remember" value="true"-->
-        <!--p>class="flex flex-col -space-y-px w-auto h-auto mb-3"</p-->
-        <div class="flex flex-col border-dashed border-2 rounded-xl px-2 border-gray-100 -space-y-px w-auto h-auto mb-3">
-          <div class="flex justify-center">
-            <button @click="showAnnotation" type="button" class="transition duration-300 h-7 w-auto group bg-white rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none">
-              <span class="text-xl">Описание</span>
-              <!--
-                Heroicon name: solid/chevron-down
-
-                Item active: "text-gray-600", Item inactive: "text-gray-400"
-              -->
-              <svg class="transform duration-500 ml-2 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                   v-bind:class="{ '-rotate-90': showText }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M12.7071 5.29289C13.0976 5.68342 13.0976 6.31658 12.7071 6.70711L9.41421 10L12.7071 13.2929C13.0976 13.6834 13.0976 14.3166 12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289L11.2929 5.29289C11.6834 4.90237 12.3166 4.90237 12.7071 5.29289Z" clip-rule="evenodd" />
-              </svg>
-            </button>
-          </div>
-          <transition name="fade">
-            <p v-show="showText">
-              Здесь вы можете выбрать свою рабочую зону. Во время работы мы
-              не будем предлагать вам заказы, в которых точки выходят за эту зону.
-              Но при выборе вы должны учитывать, часто ли в вашем населённом
-              пункте заказывают доставку, не выходящую за границы выбранной вами
-              рабочей зоны. Вы можете выбрать несколько населённых пунктов.
-            </p>
-          </transition>
-          <div v-show="showButton" class="flex justify-center">
-              <button @click="closeAnnotation" type="button" class="transition duration-300 h-7 w-auto group bg-white rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none">
-                  <span class="text-xl">Скрыть описание</span>
-                  <!--
-                    Heroicon name: solid/chevron-down
-
-                    Item active: "text-gray-600", Item inactive: "text-gray-400"
-                  -->
-                  <svg class="transform duration-500 ml-2 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                       v-bind:class="{ '-rotate-90': ( showText === false)  }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M14.7071 12.7071C14.3166 13.0976 13.6834 13.0976 13.2929 12.7071L10 9.41421L6.70711 12.7071C6.31658 13.0976 5.68342 13.0976 5.29289 12.7071C4.90237 12.3166 4.90237 11.6834 5.29289 11.2929L9.29289 7.29289C9.68342 6.90237 10.3166 6.90237 10.7071 7.29289L14.7071 11.2929C15.0976 11.6834 15.0976 12.3166 14.7071 12.7071Z" clip-rule="evenodd" />
-                  </svg>
-                </button>
-            </div>
-        </div>
       <div v-if="croppedPhoto != null" class="w-full relative">
-        <img :src="croppedPhoto/*.webviewPath*/" alt="">
+        <p>{{croppedPhotoSize}}</p>
+        <img class="mx-auto mt-4" :src="croppedPhoto/*.webviewPath*/" alt="">
         <button class="img-btn2" @click="reShoot">
             <span class="p-1">
               <!--svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white group-hover:text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,31 +87,22 @@
       </div>
       </div>
     </div>
-      <!--ExploreContainer name="Tab 1 page" /-->
-    </ion-content>
-  </ion-page>
 </template>
-
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
-    IonFabButton, IonFab, IonIcon,
-    /*IonGrid, IonRow, IonCol, IonImg*/} from '@ionic/vue';
-//import ExploreContainer from '@/components/ExploreContainer.vue';
+import { IonFabButton, IonFab, IonIcon } from '@ionic/vue';
 import {  cameraOutline } from "ionicons/icons";
 import { takePhoto /*takePhotoBase64*/ } from '@/scripts/usePhotoGallery'
 
 import { Cropper/*, Preview*/ } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
-
-export default  {
-  name: 'Tab1',
-  components: { /*ExploreContainer,*/ IonHeader, IonToolbar, IonTitle, IonContent, IonPage,
+export default {
+  components: {
     IonFabButton, IonFab, IonIcon,
     Cropper,
-    //Preview
-    /*IonGrid, IonRow, IonCol, IonImg*/
   },
-  data() {
+  props: {
+  },
+  data () {
     return {
       showText: false,
       showButton: false,
@@ -170,8 +113,12 @@ export default  {
       image: null,
       //croppedPhoto: null,
 
+      croppedPhotoSize: null,
       phoneWasChecked: false,
     }
+  },
+  mounted() {
+
   },
   computed: {
     croppedPhoto: {
@@ -186,7 +133,10 @@ export default  {
   methods: {
     change({ coordinates, canvas }) {
       console.log(coordinates, canvas);
-      this.image = canvas.toDataURL();
+      console.log(canvas.toDataURL().length);
+      this.image = canvas.toDataURL('image/jpeg', 0.4);
+      this.croppedPhotoSize = this.image.length;
+      console.log(this.croppedPhotoSize);
     },
     reShoot() {
       this.takePhoto();
@@ -202,20 +152,6 @@ export default  {
       //this.croppedPhoto = { filepath: this.photo.filepath };
       //this.croppedPhoto.webviewPath = this.image;
       this.croppedPhoto = this.image;
-    },
-    showAnnotation() {
-      if (this.showText === false) {
-        this.showText = true;
-        this.showButton = true;
-      } else {
-        this.closeAnnotation()
-      }
-    },
-    closeAnnotation() {
-      this.showText = false;
-      setTimeout(() => {
-        this.showButton = false;
-        }, 500)
     }
   }
 }
@@ -223,7 +159,8 @@ export default  {
 
 <style scoped>
   .cropper {
-    @apply w-screen /*w-11/12*/;
+    /*@apply h-3/6;*/
+    height: 450px;
     background: #DDD;
   }
   .img-btn1 {
